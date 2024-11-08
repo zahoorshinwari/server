@@ -16,6 +16,7 @@ app.get('/about', (req, res) => {
   res.send('About route 🎉');
 });
 
+app.use(express.json())
 // Use the route files
 app.use('/customer', customerRoutes);
 app.use('/users', userRoutes);
