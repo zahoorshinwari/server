@@ -45,10 +45,12 @@ app.get('/customer', async (req, res) => {
       const data = await collection.find().toArray();
       res.json(data);
     } catch (error) {
-      console.error('Error fetching data:', error); // Log full error
+      console.error('Error fetching data:', error.message);
+      console.error(error.stack); // Log the full stack trace
       res.status(500).send('Error fetching data');
     }
   });
+  
   
 
 app.listen(PORT, () => {
