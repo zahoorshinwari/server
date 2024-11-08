@@ -1,24 +1,12 @@
 // models/UserModel.js
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
-const { MONGODB_URI } = require('../config/db');
+const { connectToDatabase } = require('../config/db');
 
-let db;
 
-async function connectToDatabase() {
-  try {
-    if (!db) {
-      const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-      await client.connect();
-      db = client.db('auth');
-      console.log('✅ Connected to MongoDB');
-    }
-    return db;
-  } catch (error) {
-    console.error('Error connecting to database:', error.message);
-    throw new Error('Failed to connect to the database');
-  }
-}
+
+
+
 
 // Get all users
 const getUsers = async () => {
