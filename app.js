@@ -39,7 +39,7 @@ app.get('/customer', async (req, res) => {
   try {
     const collection = db.collection('companies'); // Access the `db` directly
     const data = await collection.find().toArray();
-    res.json(data);
+    res.send(data);
   } catch (error) {
     console.error('Error fetching data:', error.message);
     console.error(error.stack); // Log the full stack trace
