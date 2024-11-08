@@ -3,6 +3,9 @@ const { MongoClient } = require('mongodb');
 const app = express();
 const PORT =  8000;
 
+const cors = require('cors');
+
+
 // Get MongoDB URI from environment variables
 const MONGODB_URI = 'mongodb+srv://khanzshinwari5371:XK4nYA2ok8M1Imnz@authentication.jhj9h.mongodb.net/?retryWrites=true&w=majority&appName=authentication'
 
@@ -24,6 +27,9 @@ async function connectToDatabase() {
 // Connect to MongoDB
 connectToDatabase();
 
+app.use(cors());
+
+
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
@@ -33,14 +39,17 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/customer', async (req, res) => {
-  try {
-    const collection = db.collection('companies'); // replace with your collection name
-    const data = await collection.find().toArray();
-    res.json(data);
-  } catch (error) {
-    res.status(500).send('Error fetching data');
-  }
-});
+    try {
+      const db = await connectToDatabase(); // Ensure db connection
+      const collection = db.collection('companies');
+      const data = await collection.find().toArray();
+      res.json(data);
+    } catch (error) {
+      console.error('Error fetching data:', error); // Log full error
+      res.status(500).send('Error fetching data');
+    }
+  });
+  
 
 app.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
