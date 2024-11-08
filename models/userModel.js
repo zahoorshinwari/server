@@ -19,4 +19,11 @@ const getUsers = async () => {
   return collection.find().toArray();
 };
 
-module.exports = { getUsers };
+// Function to get a single user by email
+const getUserByEmail = async (email) => {
+  const database = await connectToDatabase();
+  const collection = database.collection('users');
+  return collection.findOne({ email });
+};
+
+module.exports = { getUsers, getUserByEmail };
